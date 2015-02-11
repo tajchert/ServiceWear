@@ -41,10 +41,22 @@ public class MasterService extends WearableListenerService {
     @Override
     public void onPeerConnected(Node peer) {
         super.onPeerConnected(peer);
+        Intent intent = new Intent();
+        intent.setAction("pl.tajchert.servicewear.wearservice");
+        intent.putExtra(ServiceWearConst.WEAR_EVENT_KEY, ServiceWearConst.ON_PEER_CONNECTED_EVENT);
+        intent.putExtra(ServiceWearConst.INTENT_PEER_NAME, peer.getDisplayName());
+        intent.putExtra(ServiceWearConst.INTENT_PEER_ID, peer.getId());
+        sendBroadcast(intent);
     }
 
     @Override
     public void onPeerDisconnected(Node peer) {
         super.onPeerDisconnected(peer);
+        Intent intent = new Intent();
+        intent.setAction("pl.tajchert.servicewear.wearservice");
+        intent.putExtra(ServiceWearConst.WEAR_EVENT_KEY, ServiceWearConst.ON_PEER_DISCONNECTED_EVENT);
+        intent.putExtra(ServiceWearConst.INTENT_PEER_NAME, peer.getDisplayName());
+        intent.putExtra(ServiceWearConst.INTENT_PEER_ID, peer.getId());
+        sendBroadcast(intent);
     }
 }
